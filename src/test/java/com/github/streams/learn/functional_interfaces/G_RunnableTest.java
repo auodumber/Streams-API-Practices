@@ -12,12 +12,11 @@ class G_RunnableTest {
    * StringBuilder).
    */
   @Test
-  @Disabled
   public void f_runnable1() {
     StringBuilder sb = new StringBuilder("abc");
     String suffix = "xyz";
 
-    Runnable r = null; // TODO
+    Runnable r = () -> sb.append(suffix);
 
     r.run();
     r.run();

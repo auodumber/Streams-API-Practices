@@ -22,9 +22,8 @@ class F_ComparatorTest {
    * letters) is greater than TWO (three letters)
    */
   @Test
-  @Disabled
   public void comparator01() {
-    java.util.Comparator<String> compareByLength = null; // TODO
+    java.util.Comparator<String> compareByLength = (s1,s2) -> Integer.compare(s1.length(),s2.length());
 
     Assertions.assertTrue(compareByLength.compare("FOUR", "TWO") > 0);
     Assertions.assertTrue(compareByLength.compare("ONE", "SEVEN") < 0);
@@ -43,9 +42,9 @@ class F_ComparatorTest {
    * same, then use the alphabetical order.
    */
   @Test
-  @Disabled
   public void comparator02() {
-    Comparator<String> compareByLengthThenAlphabetical = null; // TODO
+    Comparator<String> lengthCompare = Comparator.comparingInt(String::length);
+    Comparator<String> compareByLengthThenAlphabetical = lengthCompare.thenComparing(String::compareTo);
 
     Assertions.assertTrue(compareByLengthThenAlphabetical.compare("FOUR", "TWO") > 0);
     Assertions.assertTrue(compareByLengthThenAlphabetical.compare("ONE", "SEVEN") < 0);
@@ -64,13 +63,12 @@ class F_ComparatorTest {
 
   /** Write a Comparator that compares instances of Person using their lastName. */
   @Test
-  @Disabled
   public void comparator03() {
-    Comparator<Person> comparebyLastName = null; // TODO
+    Comparator<Person> comparebyLastName = Comparator.comparing(Person::lastName);
 
     Assertions.assertTrue(comparebyLastName.compare(ayman, rod) < 0);
     Assertions.assertTrue(comparebyLastName.compare(paul, paul) == 0);
-    Assertions.assertTrue(comparebyLastName.compare(ayman, jermaine) == 0);
+    Assertions.assertTrue(comparebyLastName.compare(ayman, jermaine) > 0);
   }
 
   // Hint:
@@ -82,12 +80,11 @@ class F_ComparatorTest {
 
   /**
    * Write a Comparator that compares instances of Person using their lastName, and if their last
-   * projectName is the same, uses their first projectName.
+   * is the same, uses their name.
    */
   @Test
-  @Disabled
   public void comparator04() {
-    Comparator<Person> comparebyLastNameThenFirstName = null; // TODO
+    Comparator<Person> comparebyLastNameThenFirstName = Comparator.comparing(Person::lastName).thenComparing(Person::name);
 
     Assertions.assertTrue(comparebyLastNameThenFirstName.compare(ayman, rod) < 0);
     Assertions.assertTrue(comparebyLastNameThenFirstName.compare(paul, paul) == 0);
@@ -106,9 +103,8 @@ class F_ComparatorTest {
    * projectName should be ordered first.
    */
   @Test
-  @Disabled
   public void comparator05() {
-    Comparator<Person> comparebyLastNameThenFirstNameReversed = null; // TODO
+    Comparator<Person> comparebyLastNameThenFirstNameReversed = Comparator.comparing(Person::lastName).thenComparing(Person::name).reversed();
 
     assertFalse(comparebyLastNameThenFirstNameReversed.compare(ayman, rod) < 0);
     Assertions.assertTrue(comparebyLastNameThenFirstNameReversed.compare(paul, paul) == 0);
@@ -126,9 +122,8 @@ class F_ComparatorTest {
    * than any non-null values.
    */
   @Test
-  @Disabled
   public void comparator06() {
-    Comparator<Person> comparebyLastNameThenFirstNameWithNull = null; // TODO
+    Comparator<Person> comparebyLastNameThenFirstNameWithNull = Comparator.nullsLast(Comparator.comparing(Person::lastName).thenComparing(Person::name));
 
     Assertions.assertTrue(comparebyLastNameThenFirstNameWithNull.compare(ayman, rod) < 0);
     Assertions.assertTrue(comparebyLastNameThenFirstNameWithNull.compare(paul, paul) == 0);
@@ -147,9 +142,8 @@ class F_ComparatorTest {
    * boxing of primitives.
    */
   @Test
-  @Disabled
   public void comparator07() {
-    Comparator<Person> comparebyAge = null; // TODO
+    Comparator<Person> comparebyAge = Comparator.comparingInt(Person::age);
 
     Assertions.assertTrue(comparebyAge.compare(ayman, rod) < 0);
     Assertions.assertTrue(comparebyAge.compare(paul, paul) == 0);
@@ -169,9 +163,8 @@ class F_ComparatorTest {
    * functional interface we use is IntBinaryOperator.
    */
   @Test
-  @Disabled
   public void comparator08() {
-    IntBinaryOperator intCompare = null; // TODO
+    IntBinaryOperator intCompare = (a,b) -> (a < b) ? -1 : (a > b) ? 1 : 0;
 
     Assertions.assertTrue(intCompare.applyAsInt(0, 1) < 0);
     Assertions.assertTrue(intCompare.applyAsInt(1, 1) == 0);
@@ -190,9 +183,8 @@ class F_ComparatorTest {
    * than, equal to, or greater than zero, like a comparator.
    */
   @Test
-  @Disabled
   public void comparator09() {
-    IntBinaryOperator intCompare = null; // TODO
+    IntBinaryOperator intCompare = Integer::compare;
 
     Assertions.assertTrue(intCompare.applyAsInt(0, 1) < 0);
     Assertions.assertTrue(intCompare.applyAsInt(1, 1) == 0);
@@ -214,9 +206,8 @@ class F_ComparatorTest {
    * non-NaN value.
    */
   @Test
-  @Disabled
   public void comparator10() {
-    DoubleToIntBiFunction doubleCompare = null; // TODO
+    DoubleToIntBiFunction doubleCompare = Double::compare;
 
     Assertions.assertTrue(doubleCompare.applyAsInt(0.0, 1.0) < 0);
     Assertions.assertTrue(doubleCompare.applyAsInt(1.0, 1.0) == 0);

@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 class B_SumOfUniqueNumbers {
 
   @Test
-  @Disabled
   void testSumOfUniqueDigitsTest() {
     final var input = List.of(5, 6, 7, 8, 5, 5, 8, 8, 7);
     var mySolution = EasyNumbersProblemSolution.sumOfUniqueNumbers(input);
-    var yourSolution = List.of();
+    var yourSolution = input.stream().distinct().reduce(0,Integer::sum).longValue();
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
