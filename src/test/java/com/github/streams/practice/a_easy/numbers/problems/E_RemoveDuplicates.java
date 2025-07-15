@@ -21,7 +21,7 @@ class E_RemoveDuplicates {
   @Disabled
   void testRemoveDuplicationFromListTest() {
     final var input = DummyData.fakeListOfLongNumbers();
-    var yourSolution = List.<Long>of();
+    var yourSolution = input.stream().distinct().toList();
     var mySolution = EasyNumbersProblemSolution.getUniqueNumberFromList(input);
 
     Assertions.assertEquals(mySolution, yourSolution);

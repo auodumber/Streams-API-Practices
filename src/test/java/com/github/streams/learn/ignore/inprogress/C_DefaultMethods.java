@@ -1,16 +1,15 @@
-package com.github.streams.learn.functional_interfaces;
+package com.github.streams.learn.ignore.inprogress;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** This set of exercises covers new default methods on the Collections and related APIs. */
-public class H_DefaultMethods {
+public class C_DefaultMethods {
 
   /**
    * Given a list of StringBuilders, modify each StringBuilder in-place by appending the string

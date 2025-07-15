@@ -1,9 +1,15 @@
 package com.github.streams.practice.a_easy.numbers.problems;
 
 import com.github.streams.practice.a_easy.numbers.EasyNumbersProblemSolution;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -31,7 +37,6 @@ import org.junit.jupiter.api.Test;
 /// ```
 class N_GroupingOfNumbersTest {
   @Test
-  @Disabled
   void testGroupingOfNumbers() {
     final var randomIntegers =
         List.of(
@@ -58,7 +63,7 @@ class N_GroupingOfNumbersTest {
             new Random().nextInt(100));
 
     final var mySolution = EasyNumbersProblemSolution.groupingOfNumbers(randomIntegers);
-    final var yourSolution = Collections.<Integer, List<Integer>>emptyMap();
+    final var yourSolution  =  randomIntegers.stream().collect(Collectors.groupingBy(x -> x/10));
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

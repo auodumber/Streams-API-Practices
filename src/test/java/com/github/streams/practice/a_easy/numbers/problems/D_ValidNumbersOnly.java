@@ -16,10 +16,9 @@ import org.junit.jupiter.api.Test;
  */
 class D_ValidNumbersOnly {
   @Test
-  @Disabled
   void testCheckAllIntegersWithoutAlphabets() {
     final var input = List.of("1", "12", "12a", "a12");
-    var yourSolution = List.of();
+    var yourSolution = input.stream().filter(s -> s.matches("[0-9]+")).toList();
     var mySolution = EasyNumbersProblemSolution.getNumberOnly(input);
 
     Assertions.assertEquals(mySolution, yourSolution);

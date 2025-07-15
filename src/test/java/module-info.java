@@ -1,10 +1,10 @@
 module com.github.streams {
   requires org.junit.jupiter;
-  requires org.junit.platform.commons;
-  requires net.datafaker;
+    requires net.datafaker;
   requires static lombok;
+    requires org.junit.platform.engine;
 
-  // LEARN
+    // LEARN
   opens com.github.streams.learn.ignore.inprogress to
       org.junit.platform.commons;
   opens com.github.streams.learn.functional_interfaces to

@@ -1,4 +1,4 @@
-package com.github.streams.learn.functional_interfaces;
+package com.github.streams.learn.ignore.inprogress;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * for you.
  */
 @Disabled
-public class I_SimpleStreams {
+public class D_SimpleStreams {
   private BufferedReader reader;
 
   // Hint 1:
@@ -195,7 +195,7 @@ public class I_SimpleStreams {
   public void z_setUpBufferedReader() throws IOException {
     reader =
         new BufferedReader(
-            new InputStreamReader(I_SimpleStreams.class.getResource("/SonnetI.txt").openStream()));
+            new InputStreamReader(D_SimpleStreams.class.getResource("/SonnetI.txt").openStream()));
   }
 
   @AfterEach

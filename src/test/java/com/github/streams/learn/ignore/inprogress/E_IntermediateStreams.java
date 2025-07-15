@@ -1,4 +1,4 @@
-package com.github.streams.learn.functional_interfaces;
+package com.github.streams.learn.ignore.inprogress;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,15 +12,12 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import net.datafaker.providers.base.Word;
 import org.junit.jupiter.api.*;
 
 /**
