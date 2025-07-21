@@ -19,7 +19,7 @@ public class K_IntArray2DToListConverter {
         final int[][] input = DummyData.random2DPrimitiveArray();
 
         var mySolution = EasyNumbersProblemSolution.convertInt2DArrayToList(input);
-        var yourSolution = Arrays.stream(input).map(arr -> Arrays.stream(arr).boxed().toList()).toList();
+        var yourSolution = Stream.of(input).map(arr -> Arrays.stream(arr).boxed().toList()).toList();
 
 
         Assertions.assertEquals(mySolution, yourSolution);

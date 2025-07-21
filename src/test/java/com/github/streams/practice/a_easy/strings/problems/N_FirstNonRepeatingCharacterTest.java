@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
 /**
  * Given a String find the first non-repeating character:
  *
@@ -13,11 +15,10 @@ import org.junit.jupiter.api.Test;
  */
 class N_FirstNonRepeatingCharacterTest {
     @Test
-    @Disabled
     void testFirstNonRepeatingCharacter() {
         final var input =
                 "The quick brown fox jumps over the lazy dog, find the first non repeated character.";
-        final var yourSolution = ' ';
+        final var yourSolution = input.chars().mapToObj(i -> (char) i).distinct().findFirst().get();
         final var mySolution = ProblemSolutions.firstNonRepeatingCharacter(input);
 
         Assertions.assertEquals(mySolution, yourSolution);

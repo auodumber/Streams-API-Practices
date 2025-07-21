@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+import java.util.stream.Stream;
+
 class B_LargestWordTest {
   /**
    * Find the largest word in a given string. <br>
@@ -20,12 +23,11 @@ class B_LargestWordTest {
    * @see StringProblemsSolution#findLargestWordInTheString(String)
    */
   @Test
-  @Disabled()
   public void findLargestWordInTheString() {
     final String input = "I am interested123455 to grow in my organization";
     final String mySolution = StringProblemsSolution.findLargestWordInTheString(input);
 
-    String yourSolution = null;
+    String yourSolution = Stream.of(input.split(" ")).max(Comparator.comparingInt(String::length)).get();
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

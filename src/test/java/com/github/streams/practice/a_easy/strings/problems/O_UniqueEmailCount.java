@@ -4,6 +4,8 @@ import com.github.streams.practice.b_medium.ProblemSolutions;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Identity;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -35,7 +37,8 @@ class O_UniqueEmailCount {
 
     final var mySolution = ProblemSolutions.findUniqueDomainsCount(employees);
 
-    final Map<String, ? extends Number> yourSolution = null;
+    final Map<String, ? extends Number> yourSolution = employees.stream()
+            .collect(Collectors.groupingBy(emailString -> emailString.email().substring(emailString.email().indexOf("@")+1),Collectors.counting()));
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

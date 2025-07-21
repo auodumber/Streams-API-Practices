@@ -23,7 +23,7 @@ class I_SegregateEvenOddNumbers {
 
 
     final var input2 = IntStream.range(1, 50).boxed();
-    Map<Boolean, List<Integer>> collect = input2.collect(Collectors.partitioningBy(i -> i % 2 == 0, Collectors.toList()));
+    Map<Boolean, List<Integer>> collect = input2.collect(Collectors.partitioningBy(i -> i % 2 == 0));
 
     List<Integer> evenList = collect.get(true);
     List<Integer> oddList = collect.get(false);
