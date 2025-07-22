@@ -6,10 +6,12 @@ import com.github.streams.practice.b_medium.employee.ignore.domain_related.Emplo
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Identity;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Project;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.dummy_data.DummyProjects;
-import java.util.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 
 /// ### Finds the employee who has worked on the most projects.
 ///
@@ -62,8 +64,7 @@ class G_EmployeesWhoWorkedOnMostProject {
   }
 
   @Test
-  @Disabled()
-  public void employeeWorkedOnMostProject() {
+   public void employeeWorkedOnMostProject() {
     // Given
     final var employee1 = new Identity("employee1@gmail.com", "Xee");
     final var employee2 = new Identity("employee2@yahoo.com", "Shee");
@@ -79,7 +80,7 @@ class G_EmployeesWhoWorkedOnMostProject {
     var mySolution = ProblemSolutions.employeesWorkedForMaxProjects(employees);
 
     // Then
-    Employee yourSolution = null;
+    Employee yourSolution = employees.stream().max(Comparator.comparing(Employee::totalProjectDurations)).orElseThrow(RuntimeException::new);
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

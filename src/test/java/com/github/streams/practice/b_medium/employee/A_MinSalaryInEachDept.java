@@ -2,10 +2,11 @@ package com.github.streams.practice.b_medium.employee;
 
 import com.github.streams.practice.b_medium.ProblemSolutions;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.dummy_data.DummyEmployees;
-import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.stream.Collectors;
 
 /// #### Given a list of employees, find the minimum salary in each department.
 ///
@@ -30,7 +31,8 @@ class A_MinSalaryInEachDept {
     final var employees = DummyEmployees.randomEmployees();
 
     final var mySolution = ProblemSolutions.getMinSalaryInEachDepartment(employees);
-    final var yourSolution = Map.<String, Long>of();
+    final var yourSolution = employees.stream()
+                    .collect(Collectors.toMap(e -> e.department().toString(),e -> e.salary(),(oldValue,newValue) -> Long.min(oldValue,newValue)));
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
