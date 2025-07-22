@@ -3,8 +3,9 @@ package com.github.streams.practice.b_medium.numbers.problems;
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
 import com.github.streams.practice.b_medium.numbers.problems.ignore.data.DummyData;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.stream.IntStream;
 
 /**
  * Calculates the sum of digits of a given integer.
@@ -19,13 +20,14 @@ import org.junit.jupiter.api.Test;
  */
 class C_SumOfDigits {
 
-  @Test
-  @Disabled
-  void testSumOfDigits() {
-    final var input = DummyData.fakerNumber();
-    var mySolution = MediumNumbersProblemSolution.sumOfDigits(input);
-    var yourSolution = 2;
+    @Test
+    void testSumOfDigits() {
+        final var input = DummyData.fakerNumber();
+        var mySolution = MediumNumbersProblemSolution.sumOfDigits(input);
+        var yourSolution = IntStream.iterate(input, num -> num  > 0, digit -> digit / 10)
+                .map(digit -> digit % 10)
+                .reduce(0, (a, b) -> a + b);
 
-    Assertions.assertEquals(mySolution, yourSolution);
-  }
+        Assertions.assertEquals(mySolution, yourSolution);
+    }
 }

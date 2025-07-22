@@ -1,10 +1,10 @@
 package com.github.streams.practice.b_medium.numbers.problems;
 
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 /**
  * Calculates the sum of unique elements in an array. <br>
@@ -14,13 +14,13 @@ import org.junit.jupiter.api.Test;
  */
 class B_SumOfUniqueNumbers {
 
-  @Test
-  @Disabled
-  void testSumOfUniqueDigitsTest() {
-    final var input = List.of(5, 6, 7, 8, 5, 5, 8, 8, 7);
-    var mySolution = MediumNumbersProblemSolution.sumOfUniqueNumbers(input);
-    var yourSolution = List.of();
+    @Test
+    void testSumOfUniqueDigitsTest() {
+        final var input = List.of(5, 6, 7, 8, 5, 5, 8, 8, 7);
+        var mySolution = MediumNumbersProblemSolution.sumOfUniqueNumbers(input);
+        var yourSolution = input.stream()
+                .distinct().mapToInt(Integer::intValue).sum();
 
-    Assertions.assertEquals(mySolution, yourSolution);
-  }
+        Assertions.assertEquals(mySolution, yourSolution);
+    }
 }
