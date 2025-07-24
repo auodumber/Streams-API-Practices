@@ -13,7 +13,7 @@ class A_GenerateAPrimeNumberStream {
   @Disabled
   void intStreamOfPrimeNumber() {
     final var mySolution = HardNumbersProblemSolution.generateIntStreamOfPrimeNumberStream(5);
-    final var yourSolution = IntStream.rangeClosed(1,5);
+    final var yourSolution = IntStream.range(0, 10);
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
