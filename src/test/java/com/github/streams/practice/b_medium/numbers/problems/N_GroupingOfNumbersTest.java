@@ -1,12 +1,12 @@
 package com.github.streams.practice.b_medium.numbers.problems;
 
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
-import java.util.Collections;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.Random;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Collectors;
 
 /// ### Given an array of integers, group the numbers by the range they belong to.
 ///
@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Test;
 /// ```
 class N_GroupingOfNumbersTest {
   @Test
-  @Disabled
   void testGroupingOfNumbers() {
     final var randomIntegers =
         List.of(
@@ -58,7 +57,7 @@ class N_GroupingOfNumbersTest {
             new Random().nextInt(100));
 
     final var mySolution = MediumNumbersProblemSolution.groupingOfNumbers(randomIntegers);
-    final var yourSolution = Collections.<Integer, List<Integer>>emptyMap();
+    final var yourSolution = randomIntegers.stream().collect(Collectors.groupingBy(n -> n / 10));
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

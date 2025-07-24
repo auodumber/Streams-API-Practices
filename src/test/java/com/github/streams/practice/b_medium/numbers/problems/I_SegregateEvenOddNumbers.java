@@ -1,11 +1,11 @@
 package com.github.streams.practice.b_medium.numbers.problems;
 
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
-import java.util.ArrayList;
-import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Divides a list of integers into two separate lists, one containing all even numbers and the other
@@ -13,13 +13,18 @@ import org.junit.jupiter.api.Test;
  * }
  */
 class I_SegregateEvenOddNumbers {
-  @Test
-  @Disabled
-  void testSegregationOfEvenOddNumbersTest() {
-    final var input = IntStream.range(1, 50).boxed();
-    final var mySolution = MediumNumbersProblemSolution.segregateEvenOddNumbers(input);
-    final var yourSolution = new ArrayList<>();
+    @Test
+    void testSegregationOfEvenOddNumbersTest() {
+        final var input = IntStream.range(1, 50).boxed();
+        final var input2 = IntStream.range(1, 50).boxed();
+        final var mySolution = MediumNumbersProblemSolution.segregateEvenOddNumbers(input);
+        final var yourSolution = input2
+                .collect(Collectors.partitioningBy(num -> num % 2 == 0))
+                .values()
+                .stream()
+                .flatMap(s -> s.stream())
+                .toList();
 
-    Assertions.assertEquals(mySolution, yourSolution);
-  }
+        Assertions.assertEquals(mySolution, yourSolution);
+    }
 }

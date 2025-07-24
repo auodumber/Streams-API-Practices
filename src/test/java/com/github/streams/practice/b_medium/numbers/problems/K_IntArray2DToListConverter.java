@@ -2,20 +2,20 @@ package com.github.streams.practice.b_medium.numbers.problems;
 
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
 import com.github.streams.practice.b_medium.numbers.problems.ignore.data.DummyData;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class K_IntArray2DToListConverter {
-  @Test
-  @Disabled
-  void convertInt2DArrayToList() {
-    final int[][] input = DummyData.random2DPrimitiveArray();
+    @Test
+    void convertInt2DArrayToList() {
+        final int[][] input = DummyData.random2DPrimitiveArray();
 
-    var mySolution = MediumNumbersProblemSolution.convertInt2DArrayToList(input);
-    var yourSolution = List.of(List.<Integer>of());
-
-    Assertions.assertEquals(mySolution, yourSolution);
-  }
+        var mySolution = MediumNumbersProblemSolution.convertInt2DArrayToList(input);
+        var yourSolution = Arrays.stream(input)
+                .map(row -> Arrays.stream(row).boxed().toList())
+                .toList();
+        Assertions.assertEquals(mySolution, yourSolution);
+    }
 }
