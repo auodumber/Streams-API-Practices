@@ -1,10 +1,11 @@
 package com.github.streams.practice.b_medium.numbers.problems;
 
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Re-arranges the elements of a numeric array to form the smallest possible value.
@@ -18,11 +19,10 @@ import org.junit.jupiter.api.Test;
 class F_AscendingNumberValue {
 
   @Test
-  @Disabled
   public void test() {
     var input = List.of(1, 34, 3, 98, 9, 76, 45, 4);
     var mySolution = MediumNumbersProblemSolution.getSmallestPossibleValue(input);
-    var yourSolution = "";
+    var yourSolution = input.stream().map(i -> String.valueOf(i)).sorted().collect(Collectors.joining());
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

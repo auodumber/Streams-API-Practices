@@ -3,8 +3,10 @@ package com.github.streams.practice.b_medium.numbers.problems;
 import com.github.streams.practice.b_medium.numbers.MediumNumbersProblemSolution;
 import com.github.streams.practice.b_medium.numbers.problems.ignore.data.DummyData;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /*
  * Given a numeric array , re arrange the elements to form a highest possible value.
@@ -15,11 +17,10 @@ import org.junit.jupiter.api.Test;
 class G_DescendingNumberValue {
 
   @Test
-  @Disabled
   public void test() {
     var input = DummyData.fakeList(7);
     var mySolution = MediumNumbersProblemSolution.getHighestPossibleValue(input);
-    var yourSolution = "";
+    var yourSolution = input.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).collect(Collectors.joining());
 
     Assertions.assertEquals(mySolution, yourSolution);
   }
