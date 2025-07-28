@@ -14,6 +14,7 @@ class A_GenerateAPrimeNumberStream {
         final var yourSolution = IntStream.iterate(2, x -> x < Integer.MAX_VALUE, v -> v + 1)
                 .filter(num -> IntStream.rangeClosed(2, (int)Math.sqrt(num))
                         .allMatch(n -> num % n != 0))
+                .limit(5)
                 .boxed()
                 .toList();
 

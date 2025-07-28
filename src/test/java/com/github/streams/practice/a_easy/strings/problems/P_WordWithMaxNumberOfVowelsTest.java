@@ -29,7 +29,8 @@ class P_WordWithMaxNumberOfVowelsTest {
 
         final var yourSolution = Stream.of(input.split(" "))
                 .collect(Collectors.toMap(w -> w,
-                        word -> word.chars().mapToObj(i -> String.valueOf((char) i)).filter(s -> vow.contains(s.toUpperCase())).count()
+                        word -> word.chars().mapToObj(i -> String.valueOf((char) i)).filter(s -> vow.contains(s.toUpperCase())).count(),
+                        (oldValue,newValue) -> newValue
                 )).values().stream().max(Comparator.comparingLong(Long::longValue)).get().intValue();
         ;
 
