@@ -2,8 +2,9 @@ package com.github.streams.practice.b_medium.strings.problems;
 
 import com.github.streams.practice.b_medium.strings.StringProblemsSolution;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.stream.Stream;
 
 /**
  * Unit test for reversing a string that contains special characters.
@@ -20,12 +21,14 @@ class H_ReverseStringWithSpecialCharactersTest {
    * @todo Implement this test method
    */
   @Test
-  @Disabled
   void testReverseStringWithSpecialCharactersTest() {
     var input = "Hello world! This is a test. 😅";
     var mySolution = StringProblemsSolution.reverseStringWithSpecialCharacters(input);
+    var yourSolution = Stream.of(input.split(""))
+            .reduce("" ,(a,b) -> {
+              return new StringBuilder(b).reverse().append(a).toString();
+    });
 
-    var yourSolution = "";
 
     Assertions.assertEquals(mySolution, yourSolution);
   }

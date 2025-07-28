@@ -3,8 +3,11 @@ package com.github.streams.practice.b_medium.strings.problems;
 import com.github.streams.practice.b_medium.ProblemSolutions;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.Comparator;
+import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Given A String Find the highest number of vowels present in a word.
@@ -13,12 +16,17 @@ import org.junit.jupiter.api.Test;
  */
 class P_WordWithMaxNumberOfVowelsTest {
 
-  @Disabled
   @Test
   void testNumberOfVowels() {
     var input = new Faker().chuckNorris().fact();
     final var mySolution = ProblemSolutions.maxNumberOfVowels(input);
-    final var yourSolution = 0;
+    Set<String> set = Set.of("A","I","O","U","E");
+    final Integer yourSolution = Stream.of(input.split(" "))
+            .map(str -> str.chars().mapToObj(i -> String.valueOf((char)i))
+                    .filter(c -> set.contains(c.toUpperCase())).count())
+
+                    .max(Comparator.comparingLong(Long::longValue)).get().intValue();
+
     Assertions.assertEquals(mySolution, yourSolution);
   }
 }

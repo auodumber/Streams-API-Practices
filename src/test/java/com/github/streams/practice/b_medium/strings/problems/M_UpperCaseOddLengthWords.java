@@ -1,9 +1,9 @@
 package com.github.streams.practice.b_medium.strings.problems;
 
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class M_UpperCaseOddLengthWords {
 
@@ -12,11 +12,10 @@ public class M_UpperCaseOddLengthWords {
    * to upper case.
    */
   @Test
-  @Disabled
   public void uppercaseOddLengthWords() {
     List<String> input = List.of("alfa", "bravo", "charlie", "delta", "echo", "foxtrot");
 
-    List<String> result = null; // TODO
+    List<String> result = input.stream().filter(s -> s.length() % 2 != 0).map(s -> s.toUpperCase()).toList();
 
     Assertions.assertEquals(List.of("BRAVO", "CHARLIE", "DELTA", "FOXTROT"), result);
   }
