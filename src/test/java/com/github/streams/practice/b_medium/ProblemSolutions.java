@@ -3,6 +3,7 @@ package com.github.streams.practice.b_medium;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Department;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Employee;
 import com.github.streams.practice.b_medium.employee.ignore.domain_related.Identity;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -111,5 +112,15 @@ public class ProblemSolutions {
         .max(Map.Entry.comparingByValue())
         .orElseThrow(RuntimeException::new)
         .getValue();
+  }
+
+  public static List<String> denormalizeMap(Map<Integer, List<String>> input) {
+    return input.entrySet()
+            .stream()
+            .<String>mapMulti((entry, consumer) -> {
+              for (String s : entry.getValue()) {
+                consumer.accept(s + ":" + entry.getKey());
+              }
+            }).toList();
   }
 }

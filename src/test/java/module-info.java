@@ -29,6 +29,8 @@ module com.github.streams {
       org.junit.platform.commons;
   opens com.github.streams.practice.b_medium.strings.problems to
       org.junit.platform.commons;
+  opens com.github.streams.practice.b_medium.map.problems to
+          org.junit.platform.commons;
 
   // PRACTICE HARD
   opens com.github.streams.practice.c_hard.numbers to

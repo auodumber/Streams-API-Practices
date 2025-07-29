@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -57,7 +58,7 @@ public class F_AdvancedStreams {
         Map<Integer, List<String>> result = null;
 
         result = reader.lines().flatMap(line -> SPLIT_PATTERN.splitAsStream(line))
-                .collect(Collectors.groupingBy(s -> s.length(), Collectors.toList()));
+                .collect(Collectors.groupingBy(s -> s.length()));
 
         assertEquals(10, result.get(7).size());
         assertEquals(Set.of("beauty's", "increase", "ornament"), new HashSet<>(result.get(8)));
@@ -280,7 +281,7 @@ public class F_AdvancedStreams {
                                 TotalAndDistinct::new, TotalAndDistinct::accumulate, TotalAndDistinct::combine);
 
         assertEquals(81, totalAndDistinct.getDistinctCount(), "distinct count");
-       assertEquals(10700,totalAndDistinct.getTotalCount(), "total count");
+        assertEquals(10700, totalAndDistinct.getTotalCount(), "total count");
     }
 
     @BeforeEach
@@ -311,14 +312,12 @@ public class F_AdvancedStreams {
         //(container, value) -> container.accumulate(value) because of method reference
         void accumulate(String s) {
 
-          if(this.set.add(s))
-            this.count++;
-
+            if (this.set.add(s))
+                this.count++;
         }
 
         void combine(TotalAndDistinct other) {
-          other.set.addAll(this.set);
-
+            other.set.addAll(this.set);
         }
 
         int getTotalCount() {
@@ -328,5 +327,32 @@ public class F_AdvancedStreams {
         int getDistinctCount() {
             return set.size();
         }
+    }
+
+    /**
+     * Given a parallel stream of strings, collect them into a collection in reverse order.
+     * Since the stream is parallel, you MUST write a proper combiner function in order to get
+     * the correct result.
+     */
+
+    @Test
+    public void h5_reversingCollector() {
+        Stream<String> input =
+                IntStream.range(0, 100).mapToObj(String::valueOf).parallel();
+
+        Collection<String> result =
+                input.collect(Collector.of(() -> new ArrayList<String>(), (list, str) -> list.add(str), (list1, list2) -> {
+                    list1.addAll(list2);
+                    list1.sort(Comparator.<String>comparingInt(v -> Integer.parseInt(v)).reversed());
+                    return list1;
+                }));
+
+
+        assertEquals(
+                IntStream.range(0, 100)
+                        .map(i -> 99 - i)
+                        .mapToObj(String::valueOf)
+                        .collect(Collectors.toList()),
+                new ArrayList<>(result));
     }
 }
