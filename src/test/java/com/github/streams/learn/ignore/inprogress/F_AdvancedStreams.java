@@ -341,7 +341,8 @@ public class F_AdvancedStreams {
                 IntStream.range(0, 100).mapToObj(String::valueOf).parallel();
 
         Collection<String> result =
-                input.collect(Collector.of(() -> new ArrayList<String>(), (list, str) -> list.add(str), (list1, list2) -> {
+                input.collect(Collector.of(() -> new ArrayList<String>(),
+                        (list, str) -> list.add(str), (list1, list2) -> {
                     list1.addAll(list2);
                     list1.sort(Comparator.<String>comparingInt(v -> Integer.parseInt(v)).reversed());
                     return list1;

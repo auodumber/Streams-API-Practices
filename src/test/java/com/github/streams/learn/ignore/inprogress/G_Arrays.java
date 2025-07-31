@@ -2,15 +2,12 @@ package com.github.streams.learn.ignore.inprogress;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Auodumbar
@@ -109,7 +106,7 @@ public class G_Arrays {
         final long count = Arrays.stream(ints).boxed().filter(i -> i % 2 == 0).count();
         final long count1 = Arrays.stream(ints).boxed().filter(i -> i % 2 != 0).count();
 
-        return new int[]{(int)count, (int)count1};
+        return new int[]{(int) count, (int) count1};
     }
 
 
@@ -139,15 +136,15 @@ public class G_Arrays {
     @Test
     public void testLeftRotateByOne() {
         int[] input = {1, 2, 3, 4};
-       ;
-        assertArrayEquals(new int[]{2, 3, 4, 1},  leftRotateByOne(input,1));
-        assertArrayEquals(new int[]{3, 4, 1, 2},  leftRotateByOne(input,2));
+        ;
+        assertArrayEquals(new int[]{2, 3, 4, 1}, leftRotateByOne(input, 1));
+        assertArrayEquals(new int[]{3, 4, 1, 2}, leftRotateByOne(input, 2));
     }
-    private int[] leftRotateByOne(int[] input , int k) {
-         k = k % input.length;
+    private int[] leftRotateByOne(int[] input, int k) {
+        k = k % input.length;
         return IntStream.concat(
-                Arrays.stream(input,k,input.length),
-                Arrays.stream(input,0, k)
+                Arrays.stream(input, k, input.length),
+                Arrays.stream(input, 0, k)
         ).toArray();
     }
 
@@ -164,7 +161,6 @@ public class G_Arrays {
         System.out.println(Arrays.toString(pairs.get(0)));
         System.out.println(Arrays.toString(pairs.get(1)));
         assertEquals(2, pairs.size());
-        
     }
     private List<int[]> findPairsWithSum(int[] ints, int target) {
         List<int[]> list = new ArrayList<>();
@@ -178,5 +174,127 @@ public class G_Arrays {
         }
         return list;
     }
+
+    @Test
+    public void testFindSumAndAverage() {
+        assertArrayEquals(new int[]{12, 3}, findSumAndAverage(new int[]{1, 2, 4, 5}));
+    }
+    private int[] findSumAndAverage(int[] ints) {
+        final IntSummaryStatistics intSummaryStatistics = Arrays.stream(ints).summaryStatistics();
+        return new int[]{(int) intSummaryStatistics.getSum(), (int) intSummaryStatistics.getAverage()};
+    }
+
+    /*
+     * Calculate the product of all non-zero elements.
+     * Example: [2, 0, 3, 4, 0, 5] => 120 (2*3*4*5)
+     * Return 1 if no non-zero elements
+     */
+    @Test
+    public void testProductOfNonZero() {
+        assertEquals(120, productOfNonZero(new int[]{2, 0, 3, 4, 0, 5}));
+        assertEquals(1, productOfNonZero(new int[]{0, 0, 0}));
+        assertEquals(24, productOfNonZero(new int[]{1, 2, 3, 4}));
+        assertEquals(1, productOfNonZero(new int[]{}));
+    }
+    public static int productOfNonZero(int[] arr) {
+        return Arrays.stream(arr).boxed().reduce(1, (a, b) -> b != 0 ? a * b : a);
+    }
+    /*
+     * Get the top N largest elements from the array.
+     * Example: [5, 2, 8, 1, 9, 3], n=3 => [9, 8, 5]
+     * Return in descending order
+     */
+    @Test
+    public void testGetTopN() {
+        assertArrayEquals(new int[]{9, 8, 5}, getTopN(new int[]{5, 2, 8, 1, 9, 3}, 3));
+        assertArrayEquals(new int[]{3, 2, 1}, getTopN(new int[]{1, 2, 3}, 5));
+        assertArrayEquals(new int[]{}, getTopN(new int[]{1, 2, 3}, 0));
+        assertArrayEquals(new int[]{}, getTopN(new int[]{}, 3));
+    }
+    public static int[] getTopN(int[] arr, int n) {
+
+        return Arrays.stream(arr)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .limit(n)
+                .mapToInt(Integer::intValue)
+                .toArray();
+    }
+
+    /*
+     * Check if the array contains any duplicate elements.
+     * Example: [1, 2, 3, 4, 5] => false, [1, 2, 3, 2] => true
+     */
+    @Test
+    public void testHasDuplicates() {
+        assertFalse(hasDuplicates(new int[]{1, 2, 3, 4, 5}));
+        assertTrue(hasDuplicates(new int[]{1, 2, 3, 2}));
+        assertTrue(hasDuplicates(new int[]{5, 5}));
+        assertFalse(hasDuplicates(new int[]{42}));
+        assertFalse(hasDuplicates(new int[]{}));
+    }
+
+
+    public static boolean hasDuplicates(int[] arr) {
+        return Arrays.stream(arr).distinct().toArray().length != arr.length;
+    }
+    /*
+     * Flatten a 2D array into a 1D array.
+     * Example: [[1, 2], [3, 4, 5], [6]] => [1, 2, 3, 4, 5, 6]
+     */
+
+    @Test
+    public void testFlatten2D() {
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6},
+                flatten2D(new int[][]{{1, 2}, {3, 4, 5}, {6}}));
+        assertArrayEquals(new int[]{}, flatten2D(new int[][]{}));
+        assertArrayEquals(new int[]{1, 2, 3}, flatten2D(new int[][]{{1, 2, 3}}));
+        assertArrayEquals(new int[]{}, flatten2D(new int[][]{{}, {}, {}}));
+    }
+    public static int[] flatten2D(int[][] arr) {
+        //return Arrays.stream(arr).flatMapToInt(a -> Arrays.stream(a)).toArray();
+        return Arrays.stream(arr)
+                .<Integer>mapMulti((a, consumer) -> {
+                    for (int i : a) {
+                        consumer.accept(i);
+                    }
+                }).mapToInt(i -> Integer.valueOf(i)).toArray();
+    }
+
+    /*
+     * Find elements that appear exactly once in the array.
+     * Example: [1, 2, 3, 2, 4, 3, 5] => [1, 4, 5]
+     * Return in the order they first appear
+     */
+    @Test
+    public void testFindUnique() {
+        assertEquals(Arrays.asList(1, 4, 5), findUnique(new int[]{1, 2, 3, 2, 4, 3, 5}));
+        assertEquals(Arrays.asList(1, 2, 3, 4, 5), findUnique(new int[]{1, 2, 3, 4, 5}));
+        assertEquals(Arrays.asList(), findUnique(new int[]{1, 1, 2, 2, 3, 3}));
+        assertEquals(Arrays.asList(), findUnique(new int[]{}));
+    }
+    public static List<Integer> findUnique(int[] arr) {
+         return Arrays.stream(arr).boxed()
+                 .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
+                 .entrySet()
+                 .stream()
+                 .filter(i -> i.getValue() == 1)
+                 .map(x -> x.getKey())
+                 .toList();
+    }
+    /**
+     * Flip the  bits of given number if it is 0 then 1 vice versa
+     * 13 = 1101 => flip => 0010 => decimal convert = 2
+     */
+    @Test
+    public void customBitNegate() {
+        int num = 13;
+        int bits = Integer.toBinaryString(num).length();
+        int mask = (1 << bits) - 1;
+        int res = (~num) & mask;
+
+        assertEquals(2, res);
+    }
+
 }
 
